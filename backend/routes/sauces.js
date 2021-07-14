@@ -17,4 +17,4 @@ router.get('/', (req, res, next) =>{
     .catch(() => res.status(400).json({error}));
 })
 
-  module.exports = router;
+module.exports = router;

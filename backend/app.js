@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 
 const saucesRoutes = require('./routes/sauces');
 
@@ -25,12 +24,12 @@ mongoose.connect('mongodb+srv://adrienpnr:Police31@cluster0.z6ozv.mongodb.net/te
     .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 
-app.use(bodyParser.json())
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 
 app.use('/api/sauces', saucesRoutes);
 
 app.use('/api/auth', userRoutes);
-
-
 
 module.exports = app;
