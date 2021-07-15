@@ -49,3 +49,58 @@ exports.deleteSauce = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }))
 };
 
+exports.likeOrDislikeSauce = (req, res, next) => {
+  
+  const likeStatus = req.body.like;
+  const userId = req.body.userId;
+  const thisSauce = req.params.id;
+
+  Sauce.findOne({_id: req.params.id})
+    .then(sauce => {
+      console.log(sauce.usersLiked);
+      const userVoteLike = sauce.usersLiked.indexOf(userId);
+      const userVoteDislike = sauce.usersDisliked.indexOf(userId);
+
+      if(likeStatus === 1){
+        console.log(userId +" aime la sauce.");
+          Sauce.updateOne(
+            {_id: thisSauce},
+            {$push: {usersLiked: userId}, $inc: {likes: +1},}
+          )
+            .then(() => res.status(200).json({message: "Vous aimez cette sauce !"}))
+            .catch((error) => res.status(400).json({ error }))
+        }
+
+      if(likeStatus === -1){
+        console.log(userId +" n'aime pas la sauce.");
+          Sauce.updateOne(
+            {_id: thisSauce},
+            {$push: {usersDisliked: userId}, $inc: {dislikes: +1},}
+          )
+            .then(() => res.status(200).json({message: "Vous n'aimez pas cette sauce !"}))
+            .catch((error) => res.status(400).json({ error }))
+        }
+
+      if(likeStatus === 0){
+        console.log(userId + " retire son vote");
+        if(likeStatus > -1){
+          sauce.usersLiked.slice(userVoteLike, 1);
+          Sauce.updateOne(
+            {_id: thisSauce},
+            {$push: {usersLiked: {$each: [], $slice: userVoteLike}}, $inc: {likes: -1},}
+          )
+            .then(() => res.status(200).json({message: "Vous retirez votre vote positif"}))
+            .catch((error) => res.status(400).json({ error }))
+        }
+        else if(likeStatus === -1){
+          sauce.userVoteDislike.slice(userVoteDislike, 1);
+          Sauce.updateOne(
+            {_id: thisSauce},
+            {$push: {usersDisliked: {$each: [], $slice: userVoteDislike}}, $inc: {dislikes: -1},}
+          )
+            .then(() => res.status(200).json({message: "Vous retirez votre vote négatif"}))
+            .catch((error) => res.status(400).json({ error }))
+        }
+      }
+    })
+}
