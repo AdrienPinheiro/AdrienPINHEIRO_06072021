@@ -8,8 +8,8 @@ const sauces = require('../models/sauces');
 
 router.post('/', auth, multer, saucesCtrl.createSauce);
 
-router.get('/:id', auth, multer, saucesCtrl.getOneSauce);
-router.get('/', auth, multer, saucesCtrl.getSauces);
+router.get('/:id', auth, saucesCtrl.getOneSauce);
+router.get('/', auth, saucesCtrl.getSauces);
 
 router.put('/:id', auth, multer, saucesCtrl.modifySauce);
 
