@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const multer = require('multer')
 
 const saucesSchema = mongoose.Schema({
     userId: { type: String, required: true },
@@ -14,4 +15,4 @@ const saucesSchema = mongoose.Schema({
     usersDisliked: { type: Array, default: [] },
   });
 
-module.exports = mongoose.model('sauces', saucesSchema);
+module.exports = mongoose.model('Sauce', saucesSchema);
