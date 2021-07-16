@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const multer = require('multer')
 
+// Permet de créer un tableau schéma de sauce
 const saucesSchema = mongoose.Schema({
     userId: { type: String, required: true },
     name: { type: String, required: true },

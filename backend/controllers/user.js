@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const CryptoJS = require('crypto-js');
 
+// Permet de s'enregistrer
+// Crypte le mot de passe et l'email
+// Passe la main à la fonction pour se connecter directement
 exports.signup = (req, res, next) => {
   const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{8,}$/; 
   const password = req.body.password;
@@ -24,6 +27,8 @@ exports.signup = (req, res, next) => {
       }
 };
 
+// Permet de se connecter en vérifiant par l'email si l'utilisateur existe
+// Assigne un token espirant en 24h à l'utilisateur
 exports.login = (req, res, next) => {
   const emailCrypted = CryptoJS.HmacSHA256(req.body.email, process.env.SECRET).toString()
     User.findOne({ email: emailCrypted })

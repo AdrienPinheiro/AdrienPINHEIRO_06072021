@@ -5,6 +5,8 @@ const saucesCtrl = require('../controllers/sauces')
 const multer = require('../middleware/multer-config');
 const auth = require('../middleware/auth')
 
+// Amène suivant les demandes (POST / GET et autres) de chercher une réponse différente
+// Permet de rajouter des modules et middleware (sécurité) sur les différentes réponses
 router.post('/', auth, multer, saucesCtrl.createSauce);
 router.post('/:id/like', saucesCtrl.likeOrDislikeSauce);
 

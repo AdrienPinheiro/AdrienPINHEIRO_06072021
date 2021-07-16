@@ -1,11 +1,13 @@
 const http = require('http');
 const resultConfig = require('dotenv').config({path: '.env.local'})
 
+// Permet de vérifier si le env marche et sinon de renvoyer une erreur
 if (resultConfig.error){
   throw resultConfig.error
 }
 
 const app = require('./app');
+
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -44,6 +46,8 @@ const errorHandler = error => {
 
 const server = http.createServer(app);
 
+// Permet de renvoyer une erreur si le démarrage du serveur ne marche pas
+// Permet de lancer un serveur qui attend des demandes exterieurs (POST / DELETE / autres)
 server.on('error', errorHandler);
 server.on('listening', () => {
   const address = server.address();
