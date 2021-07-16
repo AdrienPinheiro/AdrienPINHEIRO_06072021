@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const mongoSanitize = require('express-mongo-sanitize')
 const path = require('path')
 
 const saucesRoutes = require('./routes/sauces');
@@ -15,9 +16,8 @@ app.use((req, res, next) => {
   next();
 });
 
-
 mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb+srv://adrienpnr:Police31@cluster0.z6ozv.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect( process.env.MONGO_DB_URL,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true}) 

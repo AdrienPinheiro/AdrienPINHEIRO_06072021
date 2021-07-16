@@ -1,4 +1,9 @@
 const http = require('http');
+const resultConfig = require('dotenv').config({path: '.env.local'})
+
+if (resultConfig.error){
+  throw resultConfig.error
+}
 
 const app = require('./app');
 
