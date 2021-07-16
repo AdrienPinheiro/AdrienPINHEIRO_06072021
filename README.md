@@ -8,6 +8,7 @@ Pour pouvoir l'utiliser vous aurez besoin d'installer :
 - node-sass avec une version correspondante au NodeJS installé
 
 Une fois cela fait, copier le contenu du ".env".
+
 Créer un ".env.local" et coller le contenu en changeant les valeurs par des valeurs personnelles.
 
 Une fois le ".env.local" créé et modifié vous pouvez lancer les différents serveurs sur votre ordinateur :
